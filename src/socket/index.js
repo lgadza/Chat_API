@@ -25,6 +25,11 @@ export const newConnectionHandler = (newClient) => {
     // 3.1 Whenever we receive that new message we have to propagate that message to everybody but not sender
     newClient.broadcast.emit("newMessage", message);
   });
+  newClient.on("typingStatus", (status) => {
+    console.log("NEW STATUS:", status);
+    // 3.1 Whenever we receive that new message we have to propagate that message to everybody but not sender
+    newClient.broadcast.emit("isTyping", status);
+  });
 
   // 4. Listen to an event called "disconnect", this is NOT a custom event!! This event happens when an user closes browser/tab
   newClient.on("disconnect", () => {
